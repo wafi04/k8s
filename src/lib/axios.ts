@@ -14,12 +14,17 @@ interface RequestConfig {
 }
 export class Api {
   private instance: AxiosInstance;
-  constructor() {
+  constructor(token?: string) {
+    // First create the base instance
     this.instance = axios.create({
       baseURL: K8S_API_URL,
-      withCredentials: true,
     });
 
+    if (token) {
+      this.instance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
+    }
 
     this.instance.interceptors.response.use(
       (response) => response,
@@ -104,6 +109,7 @@ export class Api {
           headers: this.getHeaders(config),
         }
       );
+      console.log(url);
       return {
         data: response.data,
         statusCode: response.status,

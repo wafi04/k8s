@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactQueryProvider } from "@/components/providers/reactquery";
+import { Wrapper } from "@/components/layouts/Wrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,11 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={false}>
       <ReactQueryProvider>
-      <body>
-        {children}
-      </body>
+        <body>
+          <Wrapper>{children}</Wrapper>
+        </body>
       </ReactQueryProvider>
     </html>
   );
